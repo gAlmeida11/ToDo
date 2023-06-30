@@ -7,14 +7,14 @@ import { Todo } from './todo.model';
   styleUrls: ['./todo.component.css']
 })
 export class TodoComponent implements OnInit {
-  
-  @ViewChild('todoEntry') 
+
+  @ViewChild('todoEntry')
   todoEntry: ElementRef;
-  
+
   todos: Todo[];
-  
+
   input: string;
-  
+
   constructor(elementRef: ElementRef) {
     this.todos = [];
     this.input = '';
@@ -28,11 +28,11 @@ export class TodoComponent implements OnInit {
   addTodo() {
     if (this.input.length > 1) {
       this.todos.push({ text: this.input, complete: false });
-      this.input = ''; 
+      this.input = '';
     }
   }
 
-  rmTodo(id: number) {
+  removeTodo(id: number) {
     this.todos.splice(id, 1);
   }
 
@@ -48,6 +48,7 @@ export class TodoComponent implements OnInit {
     if (this.todos[id].complete) {
       return 'line-through';
     }
+    
     return 'none';
   }
 }

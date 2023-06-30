@@ -1,62 +1,64 @@
-<div class="container">
-  <div class="jumbotron jumbotron-fluid">
-    <div class="container">
-      <h1 class="display-3">
-        <i class="fa fa-check-square-o" aria-hidden="true"></i> To Do
-      </h1>
-      <hr />
-      <div class="row">
-        <div class="col">
-          <input type="text" matInput class="form-control col-md-10" placeholder="New Todo" [(ngModel)]="input"
-            #todoEntry (keyup.enter)="addTodo()" />
+<div class="shadow rounded border d-grid gap-3 mt-3">
+  <div class="p-3">
+    <h1>To-Do Angular</h1>
+    <h3>Simple task list in memory using angular</h3>
+  </div>
+  <div class="p-3 row">
+    <div class="row g-3">
+      <div class="col-sm-10">
+        <div class="form-floating">
+          <input type="text" matInput [(ngModel)]="input" #todoEntry
+            (keyup.enter)="addTodo()" class="form-control" id="taskInput" />
+          <label for="taskInput">Task</label>
         </div>
-        <div class="col">
-          <button class="btn btn-primary" (click)="addTodo()" [disabled]="input.length < 1">
-            <i class="fa fa-plus"></i> Add Todo
-          </button>
-        </div>
+      </div>
+      <div class="col-sm">
+        <button class="btn btn-primary btn-lg" (click)="addTodo()"
+          [disabled]="input.length < 1"> Add Todo</button>
       </div>
     </div>
   </div>
+</div>
 
-  <div class="text-center" [hidden]="todos.length < 1">
-    <h2>Todos</h2>
-    <table class="table table-striped table-hover">
-      <thead class="thead-default">
-        <tr>
-          <th>Todo</th>
-          <th>Options</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let todo of todos">
-          <td [ngStyle]="{
-                'text-decoration': doneMarcation(todos.indexOf(todo))
-              }">
-            <ng-container *ngIf="todo.complete === false; else elseTemplate">
-              <a (click)="done(todos.indexOf(todo))">{{ todo.text }}</a>
-            </ng-container>
-            <ng-template #elseTemplate>
-              <a (click)="undone(todos.indexOf(todo))">{{ todo.text }}</a>
-            </ng-template>
-          </td>
-          <td class="align-middle">
-            <button type="button" class="btn btn-danger btn-sm" (click)="rmTodo(todos.indexOf(todo))">
-              <i class="fa fa-times" aria-hidden="true"></i> Remove
-            </button>
-            &nbsp;
-            <button type="button" class="btn btn-success btn-sm" (click)="done(todos.indexOf(todo))"
-              [hidden]="todo.complete === true">
-              <i class="fa fa-check"></i> Done
-            </button>
-            &nbsp;
-            <button type="button" class="btn btn-warning btn-sm" (click)="undone(todos.indexOf(todo))"
-              [hidden]="todo.complete === false">
-              <i class="fa fa-refresh" aria-hidden="true"></i> Redo
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+<div class="text-center p-3" [hidden]="todos.length < 1">
+  <table class="table table-striped table-hover">
+    <thead class="thead-default">
+      <tr>
+        <th>Todo</th>
+        <th>Options</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let todo of todos">
+        <td [ngStyle]="{
+              'text-decoration': doneMarcation(todos.indexOf(todo))
+            }">
+          <ng-container *ngIf="todo.complete === false; else elseTemplate">
+            <a (click)="done(todos.indexOf(todo))">{{ todo.text }}</a>
+          </ng-container>
+          <ng-template #elseTemplate>
+            <a (click)="undone(todos.indexOf(todo))">{{ todo.text }}</a>
+          </ng-template>
+        </td>
+        <td class="align-middle">
+          <button type="button" class="btn btn-danger btn-sm"
+            (click)="removeTodo(todos.indexOf(todo))">
+            <i class="fa fa-times" aria-hidden="true"></i> Remove
+          </button>
+          &nbsp;
+          <button type="button" class="btn btn-success btn-sm"
+            (click)="done(todos.indexOf(todo))"
+            [hidden]="todo.complete === true">
+            <i class="fa fa-check"></i> Done
+          </button>
+          &nbsp;
+          <button type="button" class="btn btn-warning btn-sm"
+            (click)="undone(todos.indexOf(todo))"
+            [hidden]="todo.complete === false">
+            <i class="fa fa-refresh" aria-hidden="true"></i> Redo
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
